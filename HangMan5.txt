@@ -1,0 +1,94 @@
+
+import java.util.Arrays;
+import java.util.Scanner;
+// welcome to the hangman game. I could insert the all the words and pick a word from 100 from the array, but it takes a long time.
+//so just used 10 name of the big cities. The idea is same for words listed.
+public class HangMan5 
+{
+	
+	public static void main(String[] args) {
+		
+		Scanner scanner = new Scanner(System.in);
+		
+		// Word List for Game for convenience sake i picked some name of the cities
+		String[] wordList = {"london", "newyork", "manchester", "berlin", "rome", "prague", "mumbai", "birmingham", "amsterdam", "paris"};
+		
+		System.out.println("------------------------------------------.....----");
+        System.out.println("You are entering Hangman Game -> Make a city Guess ");
+        System.out.println("-----------------------------------------.....-----");
+        
+        // Random number generator. 100 will give 100 words.
+        int index = (int)(Math.random() * 10);
+        
+        int tries = 0;//counting my tries
+        
+        // Random word selection from array based on the generated random number and converting to character array
+        char[] mysteryWord = wordList[index].toCharArray();
+        
+ 
+        char[] guess = new char[mysteryWord.length];
+        
+        // Hiding the actual word with "*" symbol
+        for (int i = 0; i < guess.length; i++) {
+			
+        	guess[i] = '*';     
+		}
+        
+        System.out.println(guess);
+        
+        
+        // Continuous loop till you reach the limit of tries or you win.
+        while(true) {
+        	
+        	char playerGuess = scanner.next().charAt(0); // reading the each character from console.
+        	
+        	if (tries == 6) {
+        		System.out.println("         ____________");
+    			System.out.println("        |      |     |");
+    			System.out.println("        |      O     |");
+    			System.out.println("        |     -|-    |");
+    			System.out.println("        |      |     |");
+    			System.out.println("       	|     / \\    |");
+    			System.out.println("         ____________");
+    			System.out.print("\n");
+        		System.out.println("Game over!");
+        	}
+        		
+            for (int j = 0; j < mysteryWord.length; j++) {
+               
+            	 if (playerGuess == mysteryWord[j]) { // Checking the matching the word with player guess
+                
+            		guess[j] = playerGuess;
+            		
+                }
+            	
+            }
+            
+            System.out.println(guess);
+            tries++;
+            // Breaking the loop based on the successful completion
+            if(Arrays.equals(guess, mysteryWord)) {
+            	
+            	System.out.println("Well done");
+            	break;
+            }
+            
+        }
+        
+        System.out.println("would like to play again ? Y/N");
+        
+        char decision = scanner.next().charAt(0);
+        
+        if(decision == 'y' || decision == 'Y') {
+        	
+        	main(args); // calling the main method again based on the decision
+        	
+        } else {
+        	
+        	System.out.println("Thank you !!!!");
+        }
+        
+        scanner.close();
+        
+	}
+}
