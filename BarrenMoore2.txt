@@ -1,0 +1,145 @@
+import java.util.Scanner;
+
+//Welcome to the adventures of BarrenMoore. You are in a swamp and your position is at the top left hand corner.
+//There is a box of treasure at the other end of the swamp. However you only got a compass to move in that direction.
+//You can get the hint from the distance you are from the treasure to move in the right direction. 
+//BE CAREFUL!!! Don't be so greedy! There are two mines in it. Your life ends if you hit the mine!
+public class BarrenMoore2
+{
+		
+	private int xLocation;//location of the treasure
+	private int yLocation;
+	private Boolean found;
+	
+	public int getXLocation(){//method to call back the private integer
+        return xLocation;
+    }
+
+    public int getYLocation(){
+        return yLocation;
+    }
+    
+    public boolean isFound(){
+        return found; 
+    }
+    
+	public static void main(String[] args) {
+		
+		int xPlayer = 1;//keeping the player start position at 0,0.
+		int yPlayer = 1;
+		int xLocation = 5;
+		int yLocation = 5;
+		
+		double c;
+	
+
+    	System.out.println("---------------------------------------------------");
+        System.out.println("You are entering Barren Moore >  Find the treasure ");
+        System.out.println("---------------------------------------------------");
+        
+        String[][] board = new String [10][10]; //2d array to show the board with hidden treasures and mines
+    	for (int r = 0; r<board.length;r++){
+    	    for (int s = 0; s <board.length;s++){
+    	        board[r][s] = "?";
+    	    }
+    	}
+    	
+    	for (int r = 0; r<board.length;r++){
+    	    for (int s = 0; s <board.length;s++){
+    	        System.out.print (board[r][s] + " ");
+    	    }
+    	    System.out.println();
+    	}
+		 // this.found = false;
+		 //int xLocation = 1 + (int) (Math.random() * 10);
+		 //int yLocation = 1 + (int) (Math.random() * 10);
+		 
+	//math to find the distance from the treasure.	
+	c = Math.sqrt((xLocation - xPlayer) * (xLocation - xPlayer)) + ((yLocation - yPlayer) * ((yLocation) - (yPlayer)));
+    	
+    System.out.println("Treasures have been hidden.");
+	System.out.println("you are at position " +  (xPlayer) + "," + (yPlayer) + " and is " + c + " mts away from the treasure");
+		
+	do{//looping to keep the player moving
+	Scanner keyboard = new Scanner(System.in);
+	int xStick = keyboard.nextInt();
+	
+	switch (xStick) { 
+	case 8: 
+		xPlayer = xPlayer;
+		yPlayer = yPlayer + 1;
+		c = Math.sqrt((xLocation - xPlayer) * (xLocation - xPlayer)) + ((yLocation - yPlayer) * ((yLocation) - (yPlayer)));
+		if (((xPlayer == 3)&&(yPlayer==3)) || ((xPlayer == 2)&&(yPlayer==2)) && (c>=50))//condition if it hits the mine or go away from board
+		{
+		System.out.println("You hit the mine. Game Over!");break;
+		} else {//details the new position and new distance from the treasure
+		System.out.println("you are at position " +  (xPlayer) + "," + (yPlayer) + " and is " + c + " mts away from the treasure");
+		System.out.println("make a move> N=8/S=2/E=4/W=6 ?");
+		}
+		
+	break; 
+	case 2: 
+		xPlayer = xPlayer;
+		yPlayer = yPlayer - 1;
+		c = Math.sqrt((xLocation - xPlayer) * (xLocation - xPlayer)) + ((yLocation - yPlayer) * ((yLocation) - (yPlayer)));
+		if (((xPlayer == 3)&&(yPlayer==3)) || ((xPlayer == 2)&&(yPlayer==2)) && (c>=50) )
+		{
+		System.out.println("You hit the mine. Game Over!");break;
+		} else {
+		System.out.println("you are at position " +  (xPlayer) + "," + (yPlayer) + " and is " + c + " mts away from the treasure");
+		System.out.println("make a move> N=8/S=2/E=4/W=6 ?");
+		}
+	break; 
+	case 4: 
+		xPlayer = xPlayer - 1;
+		yPlayer = yPlayer;
+		c = Math.sqrt((xLocation - xPlayer) * (xLocation - xPlayer)) + ((yLocation - yPlayer) * ((yLocation) - (yPlayer)));
+		if (((xPlayer == 3)&&(yPlayer==3)) || ((xPlayer == 2)&&(yPlayer==2)) && (c>=50))
+		{
+		System.out.println("You hit the mine. Game Over!");break;
+		} else {
+		System.out.println("you are at position " +  (xPlayer) + "," + (yPlayer) + " and is " + c + " mts away from the treasure");
+		System.out.println("make a move> N=8/S=2/E=4/W=6 ?");
+		}
+	break; 
+	case 6: 
+		xPlayer = xPlayer +1;
+		yPlayer = yPlayer;
+		c = Math.sqrt((xLocation - xPlayer) * (xLocation - xPlayer)) + ((yLocation - yPlayer) * ((yLocation) - (yPlayer)));
+		if (((xPlayer == 3)&&(yPlayer==3)) || ((xPlayer == 2)&&(yPlayer==2)) && (c>=50))
+		{
+		System.out.println("You hit the mine. Game Over!");break;
+		} else {
+		System.out.println("you are at position " +  (xPlayer) + "," + (yPlayer) + " and is " + c + " mts away from the treasure");
+		System.out.println("make a move> N=8/S=2/E=4/W=6 ?");
+		}
+	break; 
+	default: //if you press the wrong button
+		System.out.println("Would you like to exit?" ); 
+	break; 
+	}
+	 
+	}while(c!=0);//condition to keep on the loop
+		
+	if (c == 0);//when you hit the treasure
+	{
+		System.out.println("Well done! You have now found the treasure.");
+	}
+	
+
+	System.out.println("Would like to play again ? 1=Y/3=N ");//if you want to play again.
+    
+	Scanner keyboard = new Scanner(System.in);
+    int decision = keyboard.nextInt();
+    
+    if(decision == 1) {
+    	
+    	main(args); // calling the main method again based on the decision
+    	
+    } else {
+    	
+    	System.out.println("Thank you !!!!");
+    }}
+    
+    //keyboard.close();
+}
